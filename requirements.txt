@@ -1,0 +1,15 @@
+streamlit
+streamlit_folium 
+streamlit_arabic_support_wrapper
+pandas
+xarray
+rioxarray
+netcdf4
+h5netcdf
+rasterio
+folium
+altair
+plotly
+geopandas
+Pillow
+matplotlib
