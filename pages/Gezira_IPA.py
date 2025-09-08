@@ -172,7 +172,7 @@ if st.session_state.selected_division is not None:
 
 # piechart = cm.crop_area_piechart(dfca)
 piechart, titlepie = cm.plotly_pie_chart(dfca, selected_name, selected_year, lang)
-titlepie = title = f'<p style="font:Courier; color:gray; font-size: 20px;">{titlepie}</p>'
+titlepie = f'<p style="font:Courier; color:gray; font-size: 20px;">{titlepie}</p>'
 
 with col[0]:
     # st.markdown('#####        Indicator Map')
