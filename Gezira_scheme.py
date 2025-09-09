@@ -1,5 +1,4 @@
 import streamlit as st
-from arabic_support import support_arabic_text
 
 from util import common2 as cm
 from util.gezira_info_txt import arabic_txt, english_txt
@@ -26,10 +25,6 @@ with st.sidebar:
         st.session_state.language = "e"
 
 if st.session_state.get("language", "a") == "e":
-    support_arabic_text(all=False)
-    text = english_txt
+    english_txt()
 else:
-    support_arabic_text(all=True)
-    text = arabic_txt
-
-st.markdown(text, unsafe_allow_html=True)
+    arabic_txt()

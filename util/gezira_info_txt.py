@@ -1,3 +1,9 @@
+from os.path import join
+
+import streamlit as st
+from arabic_support import support_arabic_text
+
+
 _IMAGES: dict[str, dict[str, str]] = {
     "error": {
         "link": "",
@@ -11,10 +17,22 @@ _IMAGES: dict[str, dict[str, str]] = {
         "source_english": "[source](https://en.wikipedia.org/wiki/Gezira_Scheme)",
         "source_arabic": "[المصدر](https://en.wikipedia.org/wiki/Gezira_Scheme)",
     },
+    "gezira_scheme": {
+        "link": join("data", "Gezira_Scheme.png"),
+        "a": "أقسام مشروع الجزيرة.",
+        "e": "Gezira Scheme Divisions",
+    },
 }
 
 
-def add_image(image_key: str, lan: str) -> str:
+def st_image(image_key: str, lan: str):
+    image = _IMAGES.get(image_key, _IMAGES["error"])
+    caption = image[lan]
+    link = image["link"]
+    st.image(link, caption=caption, width=400)
+
+
+def mk_image(image_key: str, lan: str) -> str:
     image = _IMAGES.get(image_key, _IMAGES["error"])
     caption = image[lan]
     link = image["link"]
@@ -23,11 +41,14 @@ def add_image(image_key: str, lan: str) -> str:
     return f'<div style="text-align: center"> {image_text} </div>'
 
 
-lang = "a"
-arabic_txt = f"""
+def arabic_txt():
+    lang = "a"
+    support_arabic_text(all=True)
+    st.markdown(
+ f"""
 # مشروع الجزيرة
 يقع مشروع الجزيرة الزراعي في وسط السودان بين النيلين الأزرق والأبيض في السهل الطيني الممتد من منطقة سنار إلى جنوب الخرطوم عاصمة السودان. وأنشئ هذا المشروع في عام 1925 لمدّ المصانع البريطانية بحاجتها من خام القطن والذي شكل أيضاً العمود الفقاري لاقتصاد السودان بعد الاستقلال. ويعتبر مشروع الجزيرة أكبر مشروع مروي في أفريقيا وأكبر مزرعة في العالم ذات إدارة واحدة.
-{add_image("satellite_image", lang)}
+{mk_image("satellite_image", lang)}
 
 # النشأة
 بدأ مشروع الجزيرة في عام 1911م، كمزرعة تجريبية لزراعة القطن في مساحة قدرها 250 فدان (بمنطقة طيبة وكركوج) شمال مدينة ود مدني تروى بالطلمبات (مضخات المياه). بعد نجاح التجربة بدأت المساحة في الازدياد عاماً بعد آخر حتى بلغت 22 ألف فدان في عام 1924م. وفي العام الذي تلاه تم افتتاح خزان سنار وإزدادت المساحة المروية حتى بلغت حوالي المليون فدان في عام 1943م. والفترة من 1958 وحتى 1962م تمت إضافة أرض زراعية بمساحة مليون فدان أخرى عرفت باسم امتداد المناقل، لتصبح المساحة الكلية للمشروع اليوم 2,2 مليون فدان.
@@ -76,14 +97,32 @@ arabic_txt = f"""
 مشاكل المشروعنظام تشغيل المشروع نظام غير معقد ويعود إلى عشرينيات القرن الماضي ونسبة لجودة نوعية الموارد الطبيعية من مياه وتربة فإن المشروع قد استمر يعمل بشكل جيد لفترة طويلة. وقد بدأت المشاكل الحقيقية التي واجهته في سبعينيات القرن الماضي وتفاقمت مع مرور الزمن حتى غدت تشكل تهديداً خطيراً لاستمراره بشكله الحالي. ومن أهم المشاكل نقص الموارد والاعتمادات المالية اللازمة لأعمال صيانة وخصخصة المشروع وبيع ممتلكاته واستبدال الآلات والبنيات القديمة خاصة نظام الاتصالات داخل وحدات المشروع الذي يعتبر ضرورياً في إدارة عمليات الريّ وتعذر إزالة الطمي والحشائش وصيانة شبكات المجاري والقنوات وأنظمة النقل والتخزين.\n
 المصدر: [ويكيبيديا](https://ar.wikipedia.org/wiki/%D9%85%D8%B4%D8%B1%D9%88%D8%B9_%D8%A7%D9%84%D8%AC%D8%B2%D9%8A%D8%B1%D8%A9).
 """
+        , unsafe_allow_html=True)
 
-lang = "e"
-english_txt = f"""
+# This dashboard provides an assessment of the irrigation performance of Gezira Scheme over the years {season_list[-1][:4]} - {season_list[0][5:]}.
+def english_txt():
+    support_arabic_text(all=False)
+    lang = "e"
+    st.markdown(
+"""
+# Dashboard Overview
+* This dashboard provides an assessment of the irrigation performance of Gezira Scheme over the years.
+* Main cultivated crops are ,🌾 Sorghum, 🌿 Wheat and 🌼 Cotton.
+* Different indicators are used considering the sections and divisions of Gezira Scheme which are:
+    - Crop water deficit.
+    - Seasonal yield.
+    - Crop water productivity.
+    - Total seasonal biomass production.
+    - Relative water deficit.
+    - Beneficial fraction.
+""", unsafe_allow_html=True)
+    st_image("gezira_scheme", lang)
+    st.markdown("""
+All the data used for the analysis is obtained from [FAO WaPOR](https://data.apps.fao.org/wapor/?lang=en).
 # Gezira Scheme
-The Gezira Scheme (Arabic: مشروع الجزيرة) is one of the largest irrigation projects in the world. It is centered on the Sudanese state of Gezira, just southeast of the confluence of the Blue and White Nile rivers at the city of Khartoum. The Gezira Scheme was begun by the British while the area was governed as part of Anglo-Egyptian Sudan. Water from the Blue Nile is distributed through canals and ditches to tenant farms lying between the Blue and White Nile.
-{add_image("satellite_image", lang)}
+The Gezira Scheme (Arabic: مشروع الجزيرة) is one of the largest irrigation projects in the world. It is centered on the Sudanese state of Gezira, just southeast of the confluence of the Blue and White Nile rivers at the city of Khartoum. The Gezira Scheme was begun by the British while the area was governed as part of Anglo-Egyptian Sudan. Water from the Blue Nile is distributed through canals and ditches to tenant farms lying between the Blue and White Nile.]
 The Gezira (which means "island") is particularly suited to irrigation because the soil slopes away from the Blue Nile and water therefore naturally runs through the irrigation canals by gravity. The soil has a high clay content which keeps down losses from seepage. Reginald Wingate, the British governor-general of Sudan, originally envisaged the farmers growing wheat but this was abandoned as the colonial authorities thought that a better cash crop was needed. When it was discovered that Egyptian-type long staple cotton could be grown, this was welcomed as a better choice as it would also provide a raw material for the British textile industry. Cotton was first grown in the area in 1904. After many experiments with irrigation, 24 square kilometres (9.3 sq mi) was put under cultivation in 1914.\n
 After the lowest Nile flood for 200 years, the Sennar Dam was constructed on the Blue Nile to provide a reservoir of water. This dam was completed in 1925 and is about 3 kilometres (1.9 mi) long. The Gezira Scheme was initially financed by the Sudan Plantations Syndicate in London and later the British government guaranteed capital to develop it. The Sudan Gezira Board took over from private enterprise in 1950 and was chaired by Arthur Gaitskell.\n
 Farmers cooperated with the Sudanese government and the Gezira Board. This network of canals and ditches was 4,300 kilometres (2,700 mi) long, and with the completion in the early 1960s of the Manaqil Extension on the western side of the Gezira Scheme, by 2008 the irrigated area covered 8,800 square kilometres (3,400 sq mi), about half the country's total land under irrigation. The main crop grown in this region was still cotton.\n
 source: [wikipedia](https://en.wikipedia.org/wiki/Gezira_Scheme)
-"""
+""", unsafe_allow_html=True)
