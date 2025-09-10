@@ -21,11 +21,6 @@ _IMAGES: dict[str, dict[str, str]] = {
         "link": join("data", "Gezira_Scheme.png"),
         "a": "أقسام مشروع الجزيرة.",
         "e": "Gezira Scheme Divisions",
-    },
-    "gezira_scheme_ar": {
-        "link": "https://raw.githubusercontent.com/HanaAltom/Gezira_IPA_AR/main/data/Gezira_Scheme.png",
-        "a": "أقسام مشروع الجزيرة.",
-        "e": "Gezira Scheme Divisions",
     }
 }
 
@@ -64,7 +59,7 @@ def arabic_txt():
 * العجز النسبي للمياه
 * نسبة الإستفادة.
 """, unsafe_allow_html=True)
-    st_image("gezira_scheme_ar", lang) 
+    st_image("gezira_scheme", lang) 
     st.markdown("""
 تم الحصول على البيانات المستخدمة في هذا التحليل مثل AETI و RET من موقع الفاو WaPOR
 ، وتم الحصول على خرائط المحاصيل من منظمة الفاو.
