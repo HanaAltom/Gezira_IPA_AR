@@ -809,5 +809,3 @@ def plotly_pie_chart(dfca, name, year, lang):
 
     return fig, title
 
-
-
