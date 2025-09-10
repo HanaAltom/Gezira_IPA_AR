@@ -63,18 +63,8 @@ def arabic_txt():
 * إجمالي إنتاج الكتلة الحيوية الموسمية.
 * العجز النسبي للمياه
 * نسبة الإستفادة.
-"""
-    )
-    st.markdown(
-        f"""
-        <div style="text-align: right;">
-            <img src="gezira_scheme_ar">
-        </div>
-    """,
-    unsafe_allow_html=True
-        
-    )
-    
+""", unsafe_allow_html=True)
+    st_image("gezira_scheme_ar", lang) 
     st.markdown("""
 تم الحصول على البيانات المستخدمة في هذا التحليل مثل AETI و RET من موقع الفاو WaPOR
 ، وتم الحصول على خرائط المحاصيل من منظمة الفاو.
