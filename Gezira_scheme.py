@@ -11,6 +11,7 @@ cm.set_page_container_style(
     padding_right=0,
     padding_left=0,
     padding_bottom=0,
+    initial_sidebar_state="auto"
 )
 
 logo_small, logo_wide = cm.logos()
@@ -47,4 +48,5 @@ if st.session_state.get("language", "a") == "e":
     english_txt()
 else:
     arabic_txt()
+
 
