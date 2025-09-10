@@ -30,6 +30,7 @@ import logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
+    initial_sidebar_state="auto",
 )
 
 logger = logging
@@ -808,4 +809,5 @@ def plotly_pie_chart(dfca, name, year, lang):
         raise NotImplementedError(f"This language is not supported yet {lang}")
 
     return fig, title
+
 
