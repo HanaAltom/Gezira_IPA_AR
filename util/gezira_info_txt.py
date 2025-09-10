@@ -22,6 +22,11 @@ _IMAGES: dict[str, dict[str, str]] = {
         "a": "أقسام مشروع الجزيرة.",
         "e": "Gezira Scheme Divisions",
     },
+    "gezira_scheme_ar": {
+        "link": "https://raw.githubusercontent.com/HanaAltom/Gezira_IPA_Team/main/data/Gezira_Scheme.png",
+        "a": "أقسام مشروع الجزيرة.",
+        "e": "Gezira Scheme Divisions",
+    },
 }
 
 
@@ -63,10 +68,10 @@ def arabic_txt():
     st.markdown(
         f"""
         <div style="text-align: right;">
-            <img src="gezira_scheme">
+            <img src="gezira_scheme_ar">
         </div>
     """,
-    unsafe_allow_html=False
+    unsafe_allow_html=True
     )
     
     st.markdown("""
