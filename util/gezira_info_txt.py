@@ -66,7 +66,7 @@ def arabic_txt():
             <img src="gezira_scheme">
         </div>
     """,
-    unsafe_allow_html=True
+    unsafe_allow_html=False
     )
     
     st.markdown("""
