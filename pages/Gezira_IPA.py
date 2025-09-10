@@ -80,7 +80,7 @@ with st.sidebar:
         stats_lst["label"][lang],
         stats_lst["values"]["index"],
         format_func=lambda x: stats_lst["values"][lang][x],
-        index=0,
+        index=3,
         help=stats_lst["help"][lang],
     )
     selected_stat = stats_lst["values"]["e"][stats_index]
