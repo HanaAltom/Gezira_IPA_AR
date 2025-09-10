@@ -23,7 +23,7 @@ _IMAGES: dict[str, dict[str, str]] = {
         "e": "Gezira Scheme Divisions",
     },
     "gezira_scheme_ar": {
-        "link": "https://raw.githubusercontent.com/HanaAltom/Gezira_IPA_Team/main/data/Gezira_Scheme.png",
+        "link": "https://raw.githubusercontent.com/HanaAltom/Gezira_IPA_AR/main/data/Gezira_Scheme.png",
         "a": "أقسام مشروع الجزيرة.",
         "e": "Gezira Scheme Divisions",
     },
