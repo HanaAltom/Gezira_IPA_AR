@@ -26,7 +26,7 @@ _IMAGES: dict[str, dict[str, str]] = {
         "link": "https://raw.githubusercontent.com/HanaAltom/Gezira_IPA_AR/main/data/Gezira_Scheme.png",
         "a": "أقسام مشروع الجزيرة.",
         "e": "Gezira Scheme Divisions",
-    },
+    }
 }
 
 
