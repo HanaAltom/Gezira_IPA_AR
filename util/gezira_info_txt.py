@@ -72,7 +72,9 @@ def arabic_txt():
         </div>
     """,
     unsafe_allow_html=True
+        
     )
+    st_image(gezira_scheme_ar, lang)
     
     st.markdown("""
 تم الحصول على البيانات المستخدمة في هذا التحليل مثل AETI و RET من موقع الفاو WaPOR
