@@ -64,7 +64,7 @@ def arabic_txt():
         f"""
         <div style="text-align: right;">
         <img src="gezira_scheme">
-    </div>
+        </div>
     """,
     unsafe_allow_html=True
     )
