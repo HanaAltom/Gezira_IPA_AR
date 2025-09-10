@@ -3,7 +3,7 @@ import streamlit as st
 from util import common2 as cm
 from util.gezira_info_txt import arabic_txt, english_txt
 
-
+cm.set_page_config(initial_sidebar_state="auto")
 cm.set_page_container_style(
     max_width=1100,
     max_width_100_percent=True,
@@ -11,7 +11,7 @@ cm.set_page_container_style(
     padding_right=0,
     padding_left=0,
     padding_bottom=0,
-    initial_sidebar_state="auto"
+    
 )
 
 logo_small, logo_wide = cm.logos()
@@ -48,5 +48,6 @@ if st.session_state.get("language", "a") == "e":
     english_txt()
 else:
     arabic_txt()
+
 
 
