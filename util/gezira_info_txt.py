@@ -68,13 +68,12 @@ def arabic_txt():
     st.markdown(
         f"""
         <div style="text-align: right;">
-            <img src="gezira_scheme_ar">
+            <img src="https://raw.githubusercontent.com/HanaAltom/Gezira_IPA_AR/main/data/Gezira_Scheme.png">
         </div>
     """,
     unsafe_allow_html=True
         
     )
-    st_image(gezira_scheme_ar, lang)
     
     st.markdown("""
 تم الحصول على البيانات المستخدمة في هذا التحليل مثل AETI و RET من موقع الفاو WaPOR
