@@ -24,7 +24,27 @@ with st.sidebar:
     if st.button("English"):
         st.session_state.language = "e"
 
+SIDEBAR_STATE = {True: "expanded", False: "collapsed"}
+
+if "open" not in st.session_state:
+    st.session_state.open = True
+    st.session_state.rerun = False
+
+def open():
+    st.session_state.open = True
+    st.session_state.rerun = True
+
+def close():
+    st.session_state.open = False
+    st.session_state.rerun = True
+
+if st.session_state.rerun:
+    st.set_page_config(initial_sidebar_state=SIDEBAR_STATE[not st.session_state.open])
+    st.session_state.rerun = False
+    st.rerun()
+
 if st.session_state.get("language", "a") == "e":
     english_txt()
 else:
     arabic_txt()
+
