@@ -63,7 +63,7 @@ def arabic_txt():
     st.markdown(
         f"""
         <div style="text-align: right;">
-        <img src="{gezira_scheme_image}" width="500">
+        <img src="{gezira_scheme}" width=TRUE>
     </div>
     """,
     unsafe_allow_html=True
