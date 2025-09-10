@@ -46,6 +46,23 @@ def arabic_txt():
     support_arabic_text(all=True)
     st.markdown(
  f"""
+# نظرة عامة على لوحة المعلومات
+توفر هذه اللوحة تقييماً لأداء الري في مشروع الجزيرة عبر السنوات من 2020 - 2024.
+المحاصيل الرئيسية المزروعة هي: 🌾 الذرة الرفيعة، 🌿 القمح، و🌼 القطن.
+تُستخدم عدة مؤشرات مع الأخذ في الاعتبار أقسام ودفعات مشروع الجزيرة، وهي:
+* العجز المائي.
+* الإنتاجية الموسمية.
+* إنتاجية المياه.
+* إجمالي إنتاج الكتلة الحيوية الموسمية.
+* العجز النسبي للمياه
+* نسبة الإستفادة.
+
+تم الحصول على البيانات المستخدمة في هذا التحليل مثل AETI و RET من موقع الفاو WaPOR
+، وتم الحصول على خرائط المحاصيل من منظمة الفاو
+.
+
+إقرأ المزيد عن مشرع الجزيرة أدناه.....
+
 # مشروع الجزيرة
 يقع مشروع الجزيرة الزراعي في وسط السودان بين النيلين الأزرق والأبيض في السهل الطيني الممتد من منطقة سنار إلى جنوب الخرطوم عاصمة السودان. وأنشئ هذا المشروع في عام 1925 لمدّ المصانع البريطانية بحاجتها من خام القطن والذي شكل أيضاً العمود الفقاري لاقتصاد السودان بعد الاستقلال. ويعتبر مشروع الجزيرة أكبر مشروع مروي في أفريقيا وأكبر مزرعة في العالم ذات إدارة واحدة.
 {mk_image("satellite_image", lang)}
@@ -118,7 +135,8 @@ def english_txt():
 """, unsafe_allow_html=True)
     st_image("gezira_scheme", lang)
     st.markdown("""
-All the data used for the analysis is obtained from [FAO WaPOR](https://data.apps.fao.org/wapor/?lang=en).
+The data used for this analysis, such as AETI and RET, was obtained from [FAO WaPOR](https://data.apps.fao.org/wapor/?lang=en). , and crop maps were obtained from [FAO](https://openknowledge.fao.org/).
+
 # Gezira Scheme
 The Gezira Scheme (Arabic: مشروع الجزيرة) is one of the largest irrigation projects in the world. It is centered on the Sudanese state of Gezira, just southeast of the confluence of the Blue and White Nile rivers at the city of Khartoum. The Gezira Scheme was begun by the British while the area was governed as part of Anglo-Egyptian Sudan. Water from the Blue Nile is distributed through canals and ditches to tenant farms lying between the Blue and White Nile.]
 The Gezira (which means "island") is particularly suited to irrigation because the soil slopes away from the Blue Nile and water therefore naturally runs through the irrigation canals by gravity. The soil has a high clay content which keeps down losses from seepage. Reginald Wingate, the British governor-general of Sudan, originally envisaged the farmers growing wheat but this was abandoned as the colonial authorities thought that a better cash crop was needed. When it was discovered that Egyptian-type long staple cotton could be grown, this was welcomed as a better choice as it would also provide a raw material for the British textile industry. Cotton was first grown in the area in 1904. After many experiments with irrigation, 24 square kilometres (9.3 sq mi) was put under cultivation in 1914.\n
