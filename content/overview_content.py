@@ -3,24 +3,26 @@ from os.path import join
 import streamlit as st
 from arabic_support import support_arabic_text
 
+from content.languages import arabic, english
+
 
 _IMAGES: dict[str, dict[str, str]] = {
     "error": {
         "link": "",
-        "a": "!الصورة غير موجودة!",
-        "e": "!image was not found!",
+        arabic: "!الصورة غير موجودة!",
+        english: "!image was not found!",
     },
     "satellite_image": {
         "link": "https://upload.wikimedia.org/wikipedia/commons/2/2d/Sudan_Gezira_Plain_1997.jpg",
-        "a": "قنوات الري كما تُرى من الفضاء، 1997",
-        "e": "The irrigation canals of the Gezira Scheme as seen from space, 1997",
+        arabic: "قنوات الري كما تُرى من الفضاء، 1997",
+        english: "The irrigation canals of the Gezira Scheme as seen from space, 1997",
         "source_english": "[source](https://en.wikipedia.org/wiki/Gezira_Scheme)",
         "source_arabic": "[المصدر](https://en.wikipedia.org/wiki/Gezira_Scheme)",
     },
     "gezira_scheme": {
         "link": join("data", "Gezira_Scheme.png"),
-        "a": "أقسام مشروع الجزيرة.",
-        "e": "Gezira Scheme Divisions",
+        arabic: "أقسام مشروع الجزيرة.",
+        english: "Gezira Scheme Divisions",
     }
 }
 
@@ -29,23 +31,21 @@ def st_image(image_key: str, lan: str):
     image = _IMAGES.get(image_key, _IMAGES["error"])
     caption = image[lan]
     link = image["link"]
-    st.image(link, caption=caption, width=400)
 
-
-def mk_image(image_key: str, lan: str) -> str:
-    image = _IMAGES.get(image_key, _IMAGES["error"])
-    caption = image[lan]
-    link = image["link"]
-    source = image.get(f"source_{lan}", "")
-    image_text = f"  \n\n![{caption}]({link} '{caption}') \n\n {caption} {source}\n"
-    return f'<div style="text-align: center"> {image_text} </div>'
+    _, col2, _ = st.columns([1, 2, 1])
+    with col2:
+        st.image(
+            link,
+            caption=caption,
+            width=400
+        )
 
 
 def arabic_txt():
-    lang = "a"
+    lang = arabic
     support_arabic_text(all=True)
     st.markdown(
- f"""
+"""
 # نظرة عامة على لوحة المعلومات
 توفر هذه اللوحة تقييماً لأداء الري في مشروع الجزيرة عبر السنوات من 2020 - 2024.
 
@@ -59,7 +59,7 @@ def arabic_txt():
 * العجز النسبي للمياه
 * نسبة الإستفادة.
 """, unsafe_allow_html=True)
-    st_image("gezira_scheme", lang) 
+    st_image("gezira_scheme", lang)
     st.markdown("""
 تم الحصول على البيانات المستخدمة في هذا التحليل مثل AETI و RET من موقع الفاو WaPOR
 ، وتم الحصول على خرائط المحاصيل من منظمة الفاو.
@@ -68,8 +68,9 @@ def arabic_txt():
 
 # مشروع الجزيرة
 يقع مشروع الجزيرة الزراعي في وسط السودان بين النيلين الأزرق والأبيض في السهل الطيني الممتد من منطقة سنار إلى جنوب الخرطوم عاصمة السودان. وأنشئ هذا المشروع في عام 1925 لمدّ المصانع البريطانية بحاجتها من خام القطن والذي شكل أيضاً العمود الفقاري لاقتصاد السودان بعد الاستقلال. ويعتبر مشروع الجزيرة أكبر مشروع مروي في أفريقيا وأكبر مزرعة في العالم ذات إدارة واحدة.
-{mk_image("satellite_image", lang)}
-
+""", unsafe_allow_html=True)
+    st_image("satellite_image", lang)
+    st.markdown( """
 # النشأة
 بدأ مشروع الجزيرة في عام 1911م، كمزرعة تجريبية لزراعة القطن في مساحة قدرها 250 فدان (بمنطقة طيبة وكركوج) شمال مدينة ود مدني تروى بالطلمبات (مضخات المياه). بعد نجاح التجربة بدأت المساحة في الازدياد عاماً بعد آخر حتى بلغت 22 ألف فدان في عام 1924م. وفي العام الذي تلاه تم افتتاح خزان سنار وإزدادت المساحة المروية حتى بلغت حوالي المليون فدان في عام 1943م. والفترة من 1958 وحتى 1962م تمت إضافة أرض زراعية بمساحة مليون فدان أخرى عرفت باسم امتداد المناقل، لتصبح المساحة الكلية للمشروع اليوم 2,2 مليون فدان.
 
@@ -116,13 +117,12 @@ def arabic_txt():
 كانت أرض المزارع في السابق مقسمة إلى اربع حواشات، مساحة الواحدة منها تبلغ 5 فدان. ولكن بتغيير الدورة الزراعية الي دورة خماسية أصبحت الحواشات بمساحة اربع افدنة نسبة لتغير التركيبة المحصولية للمزارع.\n
 مشاكل المشروعنظام تشغيل المشروع نظام غير معقد ويعود إلى عشرينيات القرن الماضي ونسبة لجودة نوعية الموارد الطبيعية من مياه وتربة فإن المشروع قد استمر يعمل بشكل جيد لفترة طويلة. وقد بدأت المشاكل الحقيقية التي واجهته في سبعينيات القرن الماضي وتفاقمت مع مرور الزمن حتى غدت تشكل تهديداً خطيراً لاستمراره بشكله الحالي. ومن أهم المشاكل نقص الموارد والاعتمادات المالية اللازمة لأعمال صيانة وخصخصة المشروع وبيع ممتلكاته واستبدال الآلات والبنيات القديمة خاصة نظام الاتصالات داخل وحدات المشروع الذي يعتبر ضرورياً في إدارة عمليات الريّ وتعذر إزالة الطمي والحشائش وصيانة شبكات المجاري والقنوات وأنظمة النقل والتخزين.\n
 المصدر: [ويكيبيديا](https://ar.wikipedia.org/wiki/%D9%85%D8%B4%D8%B1%D9%88%D8%B9_%D8%A7%D9%84%D8%AC%D8%B2%D9%8A%D8%B1%D8%A9).
-"""
-        , unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
 # This dashboard provides an assessment of the irrigation performance of Gezira Scheme over the years {season_list[-1][:4]} - {season_list[0][5:]}.
 def english_txt():
     support_arabic_text(all=False)
-    lang = "e"
+    lang = english
     st.markdown(
 """
 # Dashboard Overview

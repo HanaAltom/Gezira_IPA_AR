@@ -1,0 +1,2 @@
+arabic = "a"
+english = "e"
