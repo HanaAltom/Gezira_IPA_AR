@@ -156,3 +156,49 @@ def line_chart_content(indicator_name, stat_name, area_id, unit, language):
     y_title = f"{indicator_name.title()} [{unit}]"
     return chart_title, x_title, y_title
 
+
+land_use_type = {
+    "labels": {
+        "landuse_type": {
+            arabic: "استخدام الأرض",
+            english: "Landuse type",
+        },
+        "percentage": {
+            arabic: "النسبة",
+            english: "Percentage",
+        },
+    },
+    "values": {
+        "uncultivated": {
+            arabic: "غير مزروع",
+            english: "uncultivated",
+        },
+        "wheat": {
+            arabic: "قمح",
+            english: "wheat",
+        },
+        "sorgum": {
+            arabic: "ذرة",
+            english: "sorgum",
+        },
+        "cotton": {
+            arabic: "قطن",
+            english: "cotton",
+        },
+        "others": {
+            arabic: "اخرى",
+            english: "others",
+        },
+    },
+}
+
+
+def land_use_type_pie_title(name, year, language) -> str:
+    if language == arabic:
+        title = f"استخدامات الأراضي الشاغلة للغطاء الأرضي: {name} - {year}"
+    elif language == english:
+        title = f"Area covered by each landuse class for: {name} - {year}"
+    else:
+        raise NotImplementedError(f"This language is not supported yet {language}")
+
+    return title

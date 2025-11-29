@@ -3,8 +3,12 @@ import altair as alt
 import plotly.express as px
 
 from util.common2 import indicator_title
-from content.ipa_content import line_chart_content, area_id_translation
-from content.languages import arabic, english
+from content.ipa_content import (
+    land_use_type_pie_title,
+    line_chart_content,
+    area_id_translation,
+    land_use_type,
+)
 from content.shared_content import STATS
 
 
@@ -146,13 +150,7 @@ def alt_line_chart(df, indicator, indicator_name, unit):
 
 
 def plotly_pie_chart(dfca, name, year, language):
-    land_use_type_ar = {
-        "uncultivated": "غير مزروع",
-        "wheat": "قمح",
-        "sorgum": "ذرة",
-        "cotton": "قطن",
-        "others": "اخرى",
-    }
+
 
     df = dfca.melt(
         value_vars=[col for col in dfca.columns if "_pct" in col],
@@ -160,12 +158,19 @@ def plotly_pie_chart(dfca, name, year, language):
         value_name="percentage",
     )
 
-    # Clean up the landuse_type column for better labels
     df["landuse_type"] = df["landuse_type"].str.replace("_pct", "")
-    if language == arabic:
-        df["landuse_type"] = [land_use_type_ar[lt] for lt in df["landuse_type"]]
 
-    fig = px.pie(df, values="percentage", names="landuse_type")
+    df["landuse_type"] = [
+        land_use_type["values"][l_t][language] for l_t in df["landuse_type"]
+    ]
+    landuse_type_label = land_use_type["labels"]["landuse_type"][language]
+    percentage_label = land_use_type["labels"]["percentage"][language]
+    df.rename(
+        columns={"landuse_type": landuse_type_label, "percentage": percentage_label},
+        inplace=True,
+    )
+
+    fig = px.pie(df, values=percentage_label, names=landuse_type_label)
     # Set a general hoverlabel style (one for all slices)
     fig.update_traces(
         hoverlabel=dict(
@@ -178,11 +183,6 @@ def plotly_pie_chart(dfca, name, year, language):
         hole=0.3, textposition="inside", textinfo="percent", textfont_size=16
     )
 
-    if language == arabic:
-        title = f"استخدامات الأراضي الشاغلة للغطاء الأرضي: {name} - {year}"
-    elif language == english:
-        title = f"Area covered by each landuse class for: {name} - {year}"
-    else:
-        raise NotImplementedError(f"This language is not supported yet {language}")
+    title = land_use_type_pie_title(name, year, language)
 
     return fig, title
