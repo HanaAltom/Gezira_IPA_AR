@@ -223,7 +223,7 @@ with layout_columns[0]:
 
     # plot indicators map
     choropleth = make_folium_choropleth(
-        geo2plot, selected_indicator, df_map, col_name, language
+        geo2plot, selected_indicator, indicator_name, df_map, col_name, language
     )
     map_data = st_folium(choropleth,  height=450, use_container_width=True)
 

@@ -76,9 +76,8 @@ def merge_sections_to_divisions(geo, df_divisions, language):
     return divisions
 
 
-def make_folium_choropleth(geo, indicator, df, col_name, language):
+def make_folium_choropleth(geo, indicator, indicator_name, df, col_name, language):
     df = df.round(2)
-    ylable, _ = indicator_title(indicator, STATS)
 
     # Convert DataFrame to dictionary for mapping
     data_df = df.set_index(col_name)[indicator]
@@ -124,17 +123,17 @@ def make_folium_choropleth(geo, indicator, df, col_name, language):
 
     if col_name == "section":
         fields = [f"division_{language}", f"section_{language}", indicator]
-        aliases = [division_alias[language], section_alias[language], f"{ylable}:"]
+        aliases = [division_alias[language], section_alias[language], f"{indicator_name}:"]
         geo["ch_name"] = "Gezira Sections"
     else:
         fields = [f"division_{language}", indicator]
-        aliases = [division_alias[language], f"{ylable}:"]
+        aliases = [division_alias[language], f"{indicator_name}:"]
         geo["ch_name"] = "Gezira Divisions"
 
     # Add Choropleth layer
     tooltip=folium.GeoJsonTooltip(
-            fields=fields,#[col_name, indicator],
-            aliases=aliases,#["Section:", f"{ylable}:"],
+            fields=fields,
+            aliases=aliases,
             localize=True,
             sticky=False,
             labels=True,
