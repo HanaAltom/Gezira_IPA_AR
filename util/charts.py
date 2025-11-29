@@ -86,57 +86,29 @@ def make_alt_linechart(
     )
 
     if selected_section is not None:
-        df_sorted = move_rows_to_top(df, "section", selected_section).iloc[::-1]
+        df = move_rows_to_top(df, "section", selected_section).iloc[::-1]
+    chart = alt.Chart(df).mark_line().encode(
+        x=alt.X('year:T', title=x_title, axis=alt.Axis(tickCount="year",
+                        labelExpr='(parseInt(timeFormat(datum.value, \'%Y\')) - 1) + "–" + timeFormat(datum.value, \'%Y\')')),  
+        y=alt.Y(f'{indicator}:Q',title=y_title, scale=alt.Scale(domain=[min_value, max_value])),
+        color=alt.Color(f'{col_name}_{language}:N', title=area_id,  legend=alt.Legend(orient="top")),
 
-        chart = alt.Chart(df_sorted).mark_line(size=3).encode(
-            x=alt.X('year:T', title=x_title, axis=alt.Axis(tickCount="year")), 
-            y=alt.Y(f'{indicator}:Q',title=y_title, scale=alt.Scale(domain=[min_value, max_value])),
-            color=alt.Color(f'{col_name}_{language}:N', title=area_id,  legend=alt.Legend(orient="top")),
-            opacity=alt.condition(
-                alt.datum.section == selected_section,  # Highlight selected category
-                alt.value(1),  # Full opacity for selected
-                alt.value(0.2)  # Lower opacity for others
-            ),
+        tooltip=[
+            alt.Tooltip(f'{col_name}_{language}:N', title=area_id),
+            alt.Tooltip('year:T', title=x_title,format='%Y'),
+            alt.Tooltip(f'{indicator}:Q', title=indicator, format='.2f'),  # Format Value as decimal with 2 digits
+        ]
+    ).properties(
+        height=300,
+        bounds="flush",  # Ensures title does not affect chart size
+    ).configure_view(
+        continuousWidth=600,  # Default width to avoid shrinking
+        continuousHeight=300,
+    ).configure(
+        autosize="fit",  # Ensures it resizes correctly
+    )
 
-            tooltip=[
-                alt.Tooltip(f'{col_name}_{language}:N', title=area_id),
-                alt.Tooltip('year:T', title=x_title,format='%Y'),
-                alt.Tooltip(f'{indicator}:Q', title=indicator, format='.2f'),  # Format Value as decimal with 2 digits
-            ]
-        ).properties(
-           height=300,
-           bounds="flush",  # Ensures title does not affect chart size
-        ).configure_view(
-            continuousWidth=600,  # Default width to avoid shrinking
-            continuousHeight=300
-        ).configure(
-            autosize="fit",  # Ensures it resizes correctly
-        )
-        return chart, plot_title
-
-    else:
-        chart = alt.Chart(df).mark_line().encode(
-            x=alt.X('year:T', title=x_title, axis=alt.Axis(tickCount="year",
-                            labelExpr='(parseInt(timeFormat(datum.value, \'%Y\')) - 1) + "–" + timeFormat(datum.value, \'%Y\')')),  
-            y=alt.Y(f'{indicator}:Q',title=y_title, scale=alt.Scale(domain=[min_value, max_value])),
-            color=alt.Color(f'{col_name}_{language}:N', title=area_id,  legend=alt.Legend(orient="top")),
-
-            tooltip=[
-                alt.Tooltip(f'{col_name}_{language}:N', title=area_id),
-                alt.Tooltip('year:T', title=x_title,format='%Y'),
-                alt.Tooltip(f'{indicator}:Q', title=indicator, format='.2f'),  # Format Value as decimal with 2 digits
-            ]
-        ).properties(
-            height=300,
-            bounds="flush",  # Ensures title does not affect chart size
-        ).configure_view(
-            continuousWidth=600,  # Default width to avoid shrinking
-            continuousHeight=300,
-        ).configure(
-            autosize="fit",  # Ensures it resizes correctly
-        )
-
-        return chart, plot_title
+    return chart, plot_title
 
 
 def alt_line_chart(df, indicator, indicator_name, unit):
