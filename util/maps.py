@@ -282,21 +282,21 @@ def transform_bounds(bounds, crs):
 
 
 
-def create_colormap(data, colors, variable, folium_map):
+def create_colormap(data, colors, indicator_name, folium_map):
 
     """Create and add a colormap legend to the map."""
     colormap = LinearColormap(colors=colors, vmin=data.min(), vmax=data.max())
-    colormap.caption = f"{variable} Values"
+    colormap.caption = indicator_name
     colormap.add_to(folium_map)
     return colormap
 
 
 
-def add_image_overlay(data, bounds, colors, variable, folium_map):
+def add_image_overlay(data, bounds, colors, indicator_name, folium_map):
     """Generate an image overlay for the map."""
     img_base64 = get_image_from_ds(data, data.min(), data.max(), -9999, colors)
     ImageOverlay(
-        name=f"{variable.replace('_', ' ')}".title(),
+        name=indicator_name.title(),
         image=f"data:image/png;base64,{img_base64}",
         bounds=bounds,
         opacity=0.9,
@@ -364,15 +364,15 @@ def add_click_markers(folium_map, clicked_locations):
         ).add_to(folium_map)
 
 
-def create_folium_map(data, geo, bounds, crs, variable, language):
+def create_folium_map(data, geo, bounds, crs, indicator_name, language):
     """Main function to create the folium map."""
     (left, bottom), (right, top) = transform_bounds(bounds, crs)
 
     folium_map = create_base_map((bottom + top) / 2, (left + right) / 2, 12)
 
     colors = ['red', 'yellow', 'green']
-    create_colormap(data, colors, variable, folium_map)
-    add_image_overlay(data, [[bottom, left], [top, right]], colors, variable, folium_map)
+    create_colormap(data, colors, indicator_name, folium_map)
+    add_image_overlay(data, [[bottom, left], [top, right]], colors, indicator_name, folium_map)
 
     geo_layer = add_geojson_layer(geo, folium_map, language)
     folium_map.fit_bounds(geo_layer.get_bounds())

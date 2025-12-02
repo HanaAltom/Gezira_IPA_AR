@@ -3,13 +3,17 @@ import altair as alt
 import plotly.express as px
 
 from util.common2 import indicator_title
+from content.shared_content import STATS
 from content.ipa_content import (
     land_use_type_pie_title,
     line_chart_content,
     area_id_translation,
     land_use_type,
 )
-from content.shared_content import STATS
+from content.raster_viewer_content import (
+    raster_viewer_line_chart_title,
+    raster_viewer_line_chart_subtitles,
+)
 
 
 def move_rows_to_top(df, column, value):
@@ -115,36 +119,58 @@ def make_alt_linechart(
     return chart, plot_title
 
 
-def alt_line_chart(df, indicator, indicator_name, unit):
-    # df2=df.assign(time= pd.to_datetime(df['time']).dt.season).dropna(axis=1, how='all').round(2)
-
-    df2=df.assign(season = pd.to_datetime(df['season'],format='%Y')).dropna(axis=1, how='all').round(2)
+def alt_line_chart(df, indicator, indicator_name, unit, language):
+    df2=df.assign(season = pd.to_datetime(df["season"],format="%Y")).dropna(axis=1, how="all").round(2)
     indicator_name = indicator.replace("_"," ")
-    plot_title = f'{indicator_name.title()} for the pixels over the seasons'
-    y_title = f'{indicator_name.title()} [{unit}]'
-    data = df2.melt('season')
-    minv = data['value'].min()
-    maxv = data['value'].max()
-    chart = alt.Chart(data).mark_line().encode(
-            x=alt.X('season:T',title='Year', axis=alt.Axis(tickCount="year")),  
-            y=alt.Y("value:Q", title=y_title, scale=alt.Scale(domain=[minv*0.9, maxv*1.1])),
-            color=alt.Color("variable:N",  title='Point', legend=alt.Legend(orient="right")),
-
+    plot_title = raster_viewer_line_chart_title(indicator_name, language)
+    y_title = f"{indicator_name.title()} [{unit}]"
+    data = df2.melt("season")
+    minv = data["value"].min()
+    maxv = data["value"].max()
+    chart = (
+        alt.Chart(data)
+        .mark_line()
+        .encode(
+            x=alt.X(
+                "season:T",
+                title=raster_viewer_line_chart_subtitles["year"][language],
+                axis=alt.Axis(tickCount="year"),
+            ),
+            y=alt.Y(
+                "value:Q",
+                title=y_title,
+                scale=alt.Scale(domain=[minv * 0.9, maxv * 1.1]),
+            ),
+            color=alt.Color(
+                "variable:N",
+                title=raster_viewer_line_chart_subtitles["point"][language],
+                legend=alt.Legend(orient="right"),
+            ),
             tooltip=[
                 # alt.Tooltip(f'{col_name}:N', title=area_id),
-                alt.Tooltip('season:T', title='season',format='%Y'),    
-                alt.Tooltip(f'{indicator}:Q', title=indicator, format='.2f'),  # Format Value as decimal with 2 digits
-            ]
-        ).properties(
+                alt.Tooltip(
+                    "season:T",
+                    title=raster_viewer_line_chart_subtitles["season"][language],
+                    format="%Y",
+                ),
+                alt.Tooltip(
+                    f"{indicator}:Q", title=indicator_name, format=".2f"
+                ),  # Format Value as decimal with 2 digits
+            ],
+        )
+        .properties(
             # title=plot_title,
-            height=300, 
+            height=300,
             bounds="flush",  # Ensures title does not affect chart size
-        ).configure_view(
+        )
+        .configure_view(
             continuousWidth=600,  # Default width to avoid shrinking
-            continuousHeight=300
-        ).configure(
+            continuousHeight=300,
+        )
+        .configure(
             autosize="fit",  # Ensures it resizes correctly
         )
+    )
 
     return chart, plot_title
 

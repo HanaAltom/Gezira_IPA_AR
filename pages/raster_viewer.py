@@ -22,7 +22,12 @@ from content.shared_content import (
     select_season,
     select_indicator,
 )
-from content.raster_viewer_content import raster_viewer_title
+from content.raster_viewer_content import (
+    raster_viewer_title,
+    stats_table_title,
+    about_raster_viewer,
+    generate_time_series_button,
+)
 
 
 language: str = st.session_state.language
@@ -69,18 +74,12 @@ with st.sidebar:
     )
     indicator = select_indicator["values"][english][indicator_index]
     indicator_name = select_indicator["values"][language][indicator_index]
-    unit = select_indicator["units"][english][indicator_index]
+    unit = select_indicator["units"][language][indicator_index]
 
     st.markdown("---")
-    with st.expander("ℹ️ About the raster viewer"):
-        st.markdown("""
-        This viewer provides raster view of the Irrigation Performance Indicators.
 
-        - Year/Season and indicators can be selected to view the raster for year/season and indicator selected.
-        - 📊 The dataframe on the right side provides statistic of the selected raster                             
-        - 📈 You can click points (as many points as needed) on the raster and generate a time series plot of the points.
-
-        """)
+    with st.expander(about_raster_viewer["label"][language]):
+        st.markdown(about_raster_viewer["markdown"][language])
 
 variable = indicator.replace(' ', '_')
 selected_time = selected_season.split('-')[1] # f'{selected_season}-12-31'
@@ -100,9 +99,11 @@ elif language == english:
     df_stats = get_stats_english(data)
 else:
     raise NotImplementedError("language not supported")
+
 with layout_columns[1]:
         st.write('')
-        title = f'<p style="font:Courier; color:gray; font-size: 20px;">Stats of {indicator} [{unit}] - {selected_season}</p>'
+        title = stats_table_title(indicator_name, unit, selected_season, language)
+        title = f'<p style="font:Courier; color:gray; font-size: 20px;">{title}</p>'
         st.markdown(title, unsafe_allow_html=True)
         st.dataframe(df_stats, use_container_width=True)
 
@@ -112,7 +113,7 @@ with layout_columns[0]:
     #
     # Process clicked locations and display map
 
-    if map_data := st_folium(create_folium_map(data, geo, bounds, crs, variable, language),
+    if map_data := st_folium(create_folium_map(data, geo, bounds, crs, indicator_name, language),
                                 height=500, width=None,
                                 returned_objects=["last_clicked"]):
 
@@ -130,7 +131,7 @@ with layout_columns[0]:
     if len(filtered_markers) > 0 and not st.session_state.button_clicked:
 
         # st.markdown("---")
-        if st.button("📈 Generate Time Series"):
+        if st.button(f"📈 {generate_time_series_button[language]}"):
             st.session_state.time_series_generated = True
             st.session_state.button_clicked = True
             st.rerun()
@@ -141,7 +142,9 @@ if st.session_state.time_series_generated:
     data_all_points = extraxt_ts(data_var, locations)
 
     if(len(data_all_points) > 0):
-        chart, title = alt_line_chart(data_all_points, variable, indicator_name, unit)
+        chart, title = alt_line_chart(
+            data_all_points, variable, indicator_name, unit, language
+        )
         title = f'<p style="font:Courier; color:gray; font-size: 20px;">{title}</p>'
         st.markdown(title, unsafe_allow_html=True)
         st.altair_chart(chart, use_container_width=True)
