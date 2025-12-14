@@ -21,8 +21,6 @@ logging.basicConfig(
 logger = logging
 #######################
 # dfm.columns = [x.replace('_', ' ') for x in dfm.columns]
-logo_wide = join("data", "logo_wide.png")
-logo_small = join("data", "logo_small.png")
 
 
 def indicator_title(indicator, stat_dict):
@@ -50,9 +48,17 @@ def load_image(image_name: str) -> Image.Image:
     return Image.open(image_name)
 
 
-def logos_and_language() -> None:
+@st.cache_resource
+def _load_logos():
+    logo_wide = join("data", "logo_wide.png")
+    logo_small = join("data", "logo_small.png")
     img_wide = load_image(logo_wide)
     img_small = load_image(logo_small)
+    return img_wide, img_small
+
+
+def logos_and_language() -> None:
+    img_wide, img_small = _load_logos()
 
     st.logo(img_wide, size="large", link="https://www.un-ihe.org/", icon_image=img_small)
     arabic_button, english_button = st.columns((1, 1))
