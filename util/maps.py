@@ -36,7 +36,18 @@ def read_crop_area_df() -> pd.DataFrame:
     return df
 
 
-def merge_sections_to_divisions(geo, df_divisions, language):
+@st.cache_data(ttl=300)
+def merge_sections_to_divisions(geo, df_season, dfm, selected_indicator, language):
+    # aggregate by divisions
+    df_divisions = df_season.groupby("division").agg(
+        {f"division_{language}": "first", selected_indicator: "mean"}
+    )
+    assert isinstance(df_divisions, pd.DataFrame)
+    df_divisions = df_divisions.sort_values(
+        by=selected_indicator, ascending=False
+    ).reset_index()
+
+    # geo2plot
     divisions = df_divisions.division
     new_features = []
     for i, d_id in enumerate(divisions):
@@ -73,7 +84,16 @@ def merge_sections_to_divisions(geo, df_divisions, language):
         crs=dict(type="name", properties=dict(name="urn:ogc:def:crs:OGC:1.3:CRS84")),
         features=new_features,
     )
-    return divisions
+
+    # for chart
+    dfm_var = dfm[["season", "division", f"division_{language}", selected_indicator]].groupby(
+        ["season", "division"]
+    )
+    df_chart = dfm_var.agg(
+        {f"division_{language}": "first", selected_indicator: "mean"}
+    ).reset_index()
+
+    return divisions, df_divisions, df_chart
 
 
 def make_folium_choropleth(geo, indicator, indicator_name, df, col_name, language):

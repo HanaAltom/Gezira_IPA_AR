@@ -157,24 +157,10 @@ if selected_division is not None:
 
 else:
     col_name = "division"
-    # aggregate by divisions
-    df_divisions = df_season.groupby("division").agg(
-        {f"division_{language}": "first", selected_indicator: "mean"}
-    )
-    assert isinstance(df_divisions, pd.DataFrame)
-    df_divisions = df_divisions.sort_values(
-        by=selected_indicator, ascending=False
-    ).reset_index()
 
-    geo2plot = merge_sections_to_divisions(geo, df_divisions, language)
-    df_map = df_divisions
-
-    dfm_var = dfm[["season", "division", f"division_{language}", selected_indicator]].groupby(
-        ["season", "division"]
+    geo2plot, df_map, df_chart = merge_sections_to_divisions(
+        geo, df_season, dfm, selected_indicator, language
     )
-    df_chart = dfm_var.agg(
-        {f"division_{language}": "first", selected_indicator: "mean"}
-    ).reset_index()
 
     assert isinstance(dfc, pd.DataFrame)
     s_c = dfc[dfc["season"] == selected_year].mean(numeric_only=True)
