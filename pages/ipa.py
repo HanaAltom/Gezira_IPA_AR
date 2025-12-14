@@ -211,7 +211,12 @@ with layout_columns[0]:
     choropleth = make_folium_choropleth(
         geo2plot, selected_indicator, indicator_name, df_map, col_name, language
     )
-    map_data = st_folium(choropleth,  height=450, use_container_width=True)
+    map_data = st_folium(
+        choropleth,
+        height=450,
+        use_container_width=True,
+        returned_objects=["last_clicked"],
+    )
 
     line_chart, title = make_alt_linechart(
         df_chart,
