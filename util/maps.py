@@ -17,8 +17,6 @@ from shapely.geometry import shape,mapping, Point
 from shapely.ops import unary_union
 from branca.colormap import LinearColormap, StepColormap
 
-from util.common2 import indicator_title
-from content.shared_content import STATS
 from content.languages import arabic, english
 from content.ipa_content import division_alias, section_alias
 
