@@ -119,6 +119,18 @@ def arabic_txt():
 المصدر: [ويكيبيديا](https://ar.wikipedia.org/wiki/%D9%85%D8%B4%D8%B1%D9%88%D8%B9_%D8%A7%D9%84%D8%AC%D8%B2%D9%8A%D8%B1%D8%A9).
 """, unsafe_allow_html=True)
 
+    # References
+    st.markdown("""
+# مراجع
+
+- لوحة معلومات مشروع الجزيرة من [IHE Delft](https://www.un-ihe.org/):
+    - [IHE dashboard](https://github.com/SolSeyoum/IPA_Gezira_v3/tree/main).
+- مصدر بيانات المؤشرات:
+    - [بوابة الوابور](https://www.fao.org/in-action/remote-sensing-for-water-productivity/ar).
+- خريطة الأراضي الزراعية المستخدمة:
+    - [Geospatial cropland monitoring and crop type mapping of the Gezira irrigation scheme in the Sudan](https://doi.org/10.4060/cd1386en).
+""", unsafe_allow_html=True)
+
 # This dashboard provides an assessment of the irrigation performance of Gezira Scheme over the years {season_list[-1][:4]} - {season_list[0][5:]}.
 def english_txt():
     support_arabic_text(all=False)
@@ -146,4 +158,16 @@ The Gezira (which means "island") is particularly suited to irrigation because t
 After the lowest Nile flood for 200 years, the Sennar Dam was constructed on the Blue Nile to provide a reservoir of water. This dam was completed in 1925 and is about 3 kilometres (1.9 mi) long. The Gezira Scheme was initially financed by the Sudan Plantations Syndicate in London and later the British government guaranteed capital to develop it. The Sudan Gezira Board took over from private enterprise in 1950 and was chaired by Arthur Gaitskell.\n
 Farmers cooperated with the Sudanese government and the Gezira Board. This network of canals and ditches was 4,300 kilometres (2,700 mi) long, and with the completion in the early 1960s of the Manaqil Extension on the western side of the Gezira Scheme, by 2008 the irrigated area covered 8,800 square kilometres (3,400 sq mi), about half the country's total land under irrigation. The main crop grown in this region was still cotton.\n
 source: [wikipedia](https://en.wikipedia.org/wiki/Gezira_Scheme)
+""", unsafe_allow_html=True)
+
+    # References
+    st.markdown("""
+# References
+
+- Original Gezira Scheme dashboard done by [IHE Delft](https://www.un-ihe.org/):
+    - [IHE dashboard](https://github.com/SolSeyoum/IPA_Gezira_v3/tree/main).
+- Indices data source:
+    - [WaPOR portal](https://www.fao.org/in-action/remote-sensing-for-water-productivity/en).
+- Crop land map used:
+    - [Geospatial cropland monitoring and crop type mapping of the Gezira irrigation scheme in the Sudan](https://doi.org/10.4060/cd1386en).
 """, unsafe_allow_html=True)
