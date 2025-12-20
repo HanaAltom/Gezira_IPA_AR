@@ -100,6 +100,7 @@ elif language == english:
 else:
     raise NotImplementedError("language not supported")
 
+# Show stats table
 with layout_columns[1]:
         st.write('')
         title = stats_table_title(indicator_name, unit, selected_season, language)
@@ -107,6 +108,7 @@ with layout_columns[1]:
         st.markdown(title, unsafe_allow_html=True)
         st.dataframe(df_stats, use_container_width=True)
 
+# Show map
 with layout_columns[0]:
     st.markdown(f"### {raster_viewer_title[language]}: {selected_season}")
     # with st.spinner("Loading and processing data..."):
@@ -115,7 +117,7 @@ with layout_columns[0]:
 
     if map_data := st_folium(create_folium_map(data, geo, bounds, crs, indicator_name, language),
                                 height=500, width=None,
-                                returned_objects=["last_clicked"]):
+                                returned_objects=[]):
 
         # Process Click Event
         if map_data["last_clicked"] and map_data["last_clicked"] != st.session_state.last_clicked:
