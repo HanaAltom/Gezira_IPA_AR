@@ -116,13 +116,14 @@ def arabic_txt():
 يعتمد الرّي الانسيابي، الذي يتميز بانخفاض تكاليفه، علي مدى استواء سطح الأرض وانسيابها من الجنوب نحو الشمال، وذلك من خلال شبكة من القنوات طولها 2300 كيلومتر وتتكون من 1500 قناة صغيرة طولها 8000 كيلومتر وقناتين (ترعتين) رئيسيتين بسعة 345 متر مكعب في الثانية وهما قناة الجزيرة وقناة المناقل.. وتعمل هذه القنوات ابتدء من الترعة الرئيسية على نقل المياه من السد (الذي يعرف لدى المزارعين باسم الخزان) الي الترعة الفرعية ومنها إلى جدوال كبيرة يعرف الواحد منها باسم «أبو عشرين » ومن جدوال أبوعشرين الي جدوال أخرى أصغر حجماً تعرف بجداول «أبوستة» ومن أبو ستة الي الجدول الأصغر داخل المساحة المزروعة (الحواشة).\n
 كانت أرض المزارع في السابق مقسمة إلى اربع حواشات، مساحة الواحدة منها تبلغ 5 فدان. ولكن بتغيير الدورة الزراعية الي دورة خماسية أصبحت الحواشات بمساحة اربع افدنة نسبة لتغير التركيبة المحصولية للمزارع.\n
 مشاكل المشروعنظام تشغيل المشروع نظام غير معقد ويعود إلى عشرينيات القرن الماضي ونسبة لجودة نوعية الموارد الطبيعية من مياه وتربة فإن المشروع قد استمر يعمل بشكل جيد لفترة طويلة. وقد بدأت المشاكل الحقيقية التي واجهته في سبعينيات القرن الماضي وتفاقمت مع مرور الزمن حتى غدت تشكل تهديداً خطيراً لاستمراره بشكله الحالي. ومن أهم المشاكل نقص الموارد والاعتمادات المالية اللازمة لأعمال صيانة وخصخصة المشروع وبيع ممتلكاته واستبدال الآلات والبنيات القديمة خاصة نظام الاتصالات داخل وحدات المشروع الذي يعتبر ضرورياً في إدارة عمليات الريّ وتعذر إزالة الطمي والحشائش وصيانة شبكات المجاري والقنوات وأنظمة النقل والتخزين.\n
-المصدر: [ويكيبيديا](https://ar.wikipedia.org/wiki/%D9%85%D8%B4%D8%B1%D9%88%D8%B9_%D8%A7%D9%84%D8%AC%D8%B2%D9%8A%D8%B1%D8%A9).
 """, unsafe_allow_html=True)
 
     # References
     st.markdown("""
 # مراجع
 
+- الملخّص، معلومات عن مشروع الجزيرة:
+    - [ويكيبيديا](https://en.wikipedia.org/wiki/Gezira_Scheme) (النسخة العربية).
 - لوحة معلومات مشروع الجزيرة من [IHE Delft](https://www.un-ihe.org/):
     - [IHE dashboard](https://github.com/SolSeyoum/IPA_Gezira_v3/tree/main).
 - مصدر بيانات المؤشرات:
@@ -157,13 +158,14 @@ The Gezira Scheme (Arabic: مشروع الجزيرة) is one of the largest irri
 The Gezira (which means "island") is particularly suited to irrigation because the soil slopes away from the Blue Nile and water therefore naturally runs through the irrigation canals by gravity. The soil has a high clay content which keeps down losses from seepage. Reginald Wingate, the British governor-general of Sudan, originally envisaged the farmers growing wheat but this was abandoned as the colonial authorities thought that a better cash crop was needed. When it was discovered that Egyptian-type long staple cotton could be grown, this was welcomed as a better choice as it would also provide a raw material for the British textile industry. Cotton was first grown in the area in 1904. After many experiments with irrigation, 24 square kilometres (9.3 sq mi) was put under cultivation in 1914.\n
 After the lowest Nile flood for 200 years, the Sennar Dam was constructed on the Blue Nile to provide a reservoir of water. This dam was completed in 1925 and is about 3 kilometres (1.9 mi) long. The Gezira Scheme was initially financed by the Sudan Plantations Syndicate in London and later the British government guaranteed capital to develop it. The Sudan Gezira Board took over from private enterprise in 1950 and was chaired by Arthur Gaitskell.\n
 Farmers cooperated with the Sudanese government and the Gezira Board. This network of canals and ditches was 4,300 kilometres (2,700 mi) long, and with the completion in the early 1960s of the Manaqil Extension on the western side of the Gezira Scheme, by 2008 the irrigated area covered 8,800 square kilometres (3,400 sq mi), about half the country's total land under irrigation. The main crop grown in this region was still cotton.\n
-source: [wikipedia](https://en.wikipedia.org/wiki/Gezira_Scheme)
 """, unsafe_allow_html=True)
 
     # References
     st.markdown("""
 # References
 
+- Overview, Gezira Scheme information:
+    - [wikipedia](https://en.wikipedia.org/wiki/Gezira_Scheme) (English version).
 - Original Gezira Scheme dashboard done by [IHE Delft](https://www.un-ihe.org/):
     - [IHE dashboard](https://github.com/SolSeyoum/IPA_Gezira_v3/tree/main).
 - Indices data source:
