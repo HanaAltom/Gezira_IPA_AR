@@ -3,7 +3,12 @@
 A Streamlit-based dashboard for monitoring and analyzing irrigation performance indicators in the Gezira Irrigation Scheme. This interactive application provides bilingual support (English/Arabic) and visualizes agricultural water management data through multiple pages including overview, performance indicators, and raster map viewing.
 
 ## Access
+
 **Try the live dashboard**: [https://gezira-ipa-ar.streamlit.app/](https://gezira-ipa-ar.streamlit.app/)
+
+## Preview
+
+https://github.com/user-attachments/assets/3b660bfd-90be-4f99-adda-bd934c9d55a8
 
 ## Features
 
